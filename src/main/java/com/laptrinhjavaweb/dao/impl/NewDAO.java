@@ -1,19 +1,27 @@
 package com.laptrinhjavaweb.dao.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.util.ArrayList;
 import java.util.List;
 
 import com.laptrinhjavaweb.dao.INewDAO;
+import com.laptrinhjavaweb.mapper.NewMapper;
 import com.laptrinhjavaweb.model.NewModel;
 
-public class NewDAO implements INewDAO{
+public class NewDAO extends AbstractDAO<NewModel> implements INewDAO{
 
-	public Connection getConnetioṇ() {
+	@Override
+	public List<NewModel> findByCategoryId(Long categoryId) {
+		String sql ="SELECT * FROM news WHERE categoryid = ?";
+		return query(sql, new NewMapper(), categoryId);
+	}
+	
+	//code old
+	/*public Connection getConnetioṇ() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
@@ -23,12 +31,12 @@ public class NewDAO implements INewDAO{
 		} catch (ClassNotFoundException | SQLException e) {
 			return null;
 		}
-	}
+	}*/
 	
-	@Override
+	/*@Override
 	public List<NewModel> findByCategoryId(Long categoryId) {
 		List<NewModel> results = new ArrayList<>();
-		String sql ="SELECT * FROM news WHERE categoryid = ?;";
+		String sql ="SELECT * FROM news WHERE categoryid = ?";
 		//open connection
 		Connection connection = getConnetioṇ();
 		PreparedStatement statement = null;
@@ -36,7 +44,9 @@ public class NewDAO implements INewDAO{
 		if (connection != null) {
 			try {
 				statement = connection.prepareStatement(sql);
+				//tham so
 				statement.setLong(1, categoryId);
+				
 				resultSet = statement.executeQuery();
 				while (resultSet.next()) {
 					NewModel news = new NewModel();
@@ -66,5 +76,5 @@ public class NewDAO implements INewDAO{
 		}
 		return null;
 	}
-
+*/
 }

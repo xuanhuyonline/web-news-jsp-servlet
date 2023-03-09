@@ -1,19 +1,27 @@
 package com.laptrinhjavaweb.dao.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+//import java.sql.SQLException;
+//import java.util.ArrayList;
 import java.util.List;
 
 import com.laptrinhjavaweb.dao.ICategoryDAO;
+import com.laptrinhjavaweb.mapper.CategoryMapper;
 import com.laptrinhjavaweb.model.CategoryModel;
 
-public class CategoryDAO implements ICategoryDAO {
+public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategoryDAO {
 
-	public Connection getConnetioṇ() {
+	@Override
+	public List<CategoryModel> findAll() {
+		String sql ="SELECT * FROM category;";
+		return query(sql, new CategoryMapper());
+	}
+	
+	//code old
+	/*public Connection getConnetioṇ() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
@@ -25,10 +33,10 @@ public class CategoryDAO implements ICategoryDAO {
 		}
 		//loi nay ClassNotFoundException khi chua co Driver, chua khai bao o pom
 		//loi SQLException nay khi url user password khong dung
-	}
+	}*/
 
 	// Override lai ICategoryDAO
-	@Override
+	/*@Override
 	public List<CategoryModel> findAll() {
 		List<CategoryModel> results = new ArrayList<>();
 		String sql ="SELECT * FROM category;";
@@ -71,6 +79,6 @@ public class CategoryDAO implements ICategoryDAO {
 			
 		}
 		return null;
-	}
+	}*/
 
 }
