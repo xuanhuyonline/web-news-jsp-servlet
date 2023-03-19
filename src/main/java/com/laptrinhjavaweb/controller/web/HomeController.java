@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String title = "Bài viết 5";
+		/*String title = "Bài viết 5";
 		String content = "Bài viết 5";
 		Long categoryId = 1L;
 		
@@ -36,7 +36,7 @@ public class HomeController extends HttpServlet {
 		newModel.setTitle(title);
 		newModel.setContent(content);
 		newModel.setCategoryId(categoryId);
-		newService.save(newModel);
+		newService.save(newModel);*/
 		
 		request.setAttribute("categories", categoryService.findAll());
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");

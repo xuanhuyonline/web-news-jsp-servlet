@@ -12,6 +12,7 @@ public class AbstractModel<T> {
 	private String createdBy;
 	private String modifiedBy;
 	private long[] ids;
+	
 	private List<T> listResult = new ArrayList<>();
 	private Integer page;
 	private Integer maxPageItem;

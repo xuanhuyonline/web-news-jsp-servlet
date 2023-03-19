@@ -74,7 +74,6 @@ insert into user(username,password,fullname,status, roleid) values('nguyenvanb',
 INSERT INTO `jspservletjdbc`.`category` (`id`, `name`, `code`) VALUES ('1', 'thể thao', 'the-thao');
 INSERT INTO `jspservletjdbc`.`category` (`id`, `name`, `code`) VALUES ('2', 'chính trị', 'chinh-tri');
 
-
 INSERT INTO `jspservletjdbc`.`news` (`title`, `categoryid`) VALUES ('Bài viết 1', '1');
 INSERT INTO `jspservletjdbc`.`news` (`title`, `categoryid`) VALUES ('Bài viết 2', '1');
 INSERT INTO `jspservletjdbc`.`news` (`title`, `categoryid`) VALUES ('Bài viết 3', '2');
