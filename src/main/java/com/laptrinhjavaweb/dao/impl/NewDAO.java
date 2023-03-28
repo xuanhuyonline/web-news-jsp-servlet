@@ -22,8 +22,13 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO{
 
 	@Override
 	public Long save(NewModel newModel) {
-		String sql = "INSERT INTO news (title, content,categoryid) VALUES(?,?,?)";
-		return insert(sql, newModel.getTitle(), newModel.getContent(), newModel.getCategoryId());
+		//String sql = "INSERT INTO news (title, content,categoryid) VALUES(?,?,?)";
+		StringBuilder sql = new StringBuilder("INSERT INTO news (title, content,");
+		sql.append(" thumbnail, shortdescription, categoryid, createddate, createdby)");
+		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?)");
+		return insert(sql.toString(), newModel.getTitle(), newModel.getContent(), 
+				newModel.getThumbnail(), newModel.getShortDescription(), newModel.getCategoryId(),
+				newModel.getCreatedDate(), newModel.getCreatedBy());
 	}
 
 	@Override
@@ -37,9 +42,10 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO{
 	public void update(NewModel updateNew) {
 		StringBuilder sql = new StringBuilder("UPDATE news SET title = ?, thumbnail = ?,");
 		sql.append(" shortdescription = ?, content = ?, categoryid = ?,");
-		sql.append(" createddate = ?, createdby = ? WHERE id = ?");
+		sql.append(" createddate = ?, createdby = ?, modifieddate = ?, modifiedby = ? WHERE id = ?");
 		update(sql.toString(), updateNew.getTitle(), updateNew.getThumbnail(), updateNew.getShortDescription(),
 				updateNew.getContent(), updateNew.getCategoryId(), updateNew.getCreatedDate(), 
+				updateNew.getCreatedBy(), updateNew.getModifiedDate(), 
 				updateNew.getModifiedBy(), updateNew.getId());
 	}
 
@@ -48,62 +54,4 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO{
 		String sql = "DELETE FROM news WHERE id = ?";
 		update(sql, id);
 	}
-	
-	//code old
-	/*public Connection getConnetioṇ() {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
-			String user = "root";
-			String password = "root";
-			return DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException | SQLException e) {
-			return null;
-		}
-	}*/
-	
-	/*@Override
-	public List<NewModel> findByCategoryId(Long categoryId) {
-		List<NewModel> results = new ArrayList<>();
-		String sql ="SELECT * FROM news WHERE categoryid = ?";
-		//open connection
-		Connection connection = getConnetioṇ();
-		PreparedStatement statement = null;
-		ResultSet resultSet = null;
-		if (connection != null) {
-			try {
-				statement = connection.prepareStatement(sql);
-				//tham so
-				statement.setLong(1, categoryId);
-				
-				resultSet = statement.executeQuery();
-				while (resultSet.next()) {
-					NewModel news = new NewModel();
-					news.setId(resultSet.getLong("id"));
-					news.setTitle(resultSet.getString("title"));
-					results.add(news);
-				}
-				return results;
-			} catch (SQLException e) {
-				return null;
-			} finally {
-				try {
-					if (connection != null) {
-						connection.close();
-					}
-					if (statement != null) {
-						statement.close();
-					}
-					if (resultSet != null) {
-						resultSet.close();
-					}
-				} catch (SQLException e) {
-					return null;
-				}
-			}
-			
-		}
-		return null;
-	}
-*/
 }

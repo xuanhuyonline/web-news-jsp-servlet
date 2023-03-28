@@ -41,6 +41,8 @@ public class NewService implements INewService{
 	@Override
 	public void delete(long[] ids) {
 		for (long id: ids) {
+			//delete comment khoa ngoai
+			//delete new
 			newDao.delete(id);
 		}
 	}
