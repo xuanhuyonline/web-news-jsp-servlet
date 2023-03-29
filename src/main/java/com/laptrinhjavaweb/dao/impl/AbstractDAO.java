@@ -15,7 +15,7 @@ import com.laptrinhjavaweb.mapper.RowMapper;
 
 public class AbstractDAO<T> implements GenericDAO<T>{
 
-	public Connection getConnetioṇ() {
+	public Connection getConnectioṇ() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/jspservletjdbc";
@@ -35,7 +35,7 @@ public class AbstractDAO<T> implements GenericDAO<T>{
 		ResultSet resultSet = null;
 		
 		try {
-			connection = getConnetioṇ();
+			connection = getConnectioṇ();
 			statement = connection.prepareStatement(sql);
 			//set parameter()
 			setParameter(statement,parameters);
@@ -90,7 +90,7 @@ public class AbstractDAO<T> implements GenericDAO<T>{
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
-			connection = getConnetioṇ();
+			connection = getConnectioṇ();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
 			setParameter(statement, parameters);
@@ -126,7 +126,7 @@ public class AbstractDAO<T> implements GenericDAO<T>{
 		ResultSet resultSet = null;
 		try {
 			Long id = null;
-			connection = getConnetioṇ();
+			connection = getConnectioṇ();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql,statement.RETURN_GENERATED_KEYS);
 			setParameter(statement, parameters);
@@ -161,5 +161,39 @@ public class AbstractDAO<T> implements GenericDAO<T>{
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int count(String sql, Object... parameters) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		try {
+			int count = 0;
+			connection = getConnectioṇ();
+			statement = connection.prepareStatement(sql);
+			setParameter(statement, parameters);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+			return count;
+		} catch (SQLException e) {
+			return 0;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				return 0;
+			}
+		}
 	}
 }
