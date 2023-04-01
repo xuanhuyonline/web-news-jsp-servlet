@@ -16,7 +16,7 @@
             <ul class="breadcrumb">
                 <li>
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="#">Trang chủ</a>
+                     <a href='<c:url value="/admin-new?type=list&page=1&maxPageItem=2&sortName=title&sortBy=desc"/>'>Trang chủ</a>
                 </li>
                 <li class="active">Chỉnh sửa bài viết</li>
             </ul><!-- /.breadcrumb -->
@@ -86,7 +86,10 @@
                             <br/>
                             <br/>
                             <div class="form-group">
-                                <div class="col-sm-12">
+                            	<div class="col-sm-6">
+                                    <a href='<c:url value="/admin-new?type=list&page=1&maxPageItem=2&sortName=title&sortBy=desc"/>' class="btn btn-white btn-warning btn-bold">Trở về</a>
+                                </div>
+                                <div class="col-sm-6">
                                     <c:if test="${not empty model.id}">
                                         <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật bài viết" id="btnAddOrUpdateNew"/>
                                     </c:if>
@@ -131,10 +134,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	console.log(result);
+            	window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-            	console.log(error);
+            	window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         });
     }
@@ -146,10 +149,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	console.log(result);
+            	window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=update_success";
             },
             error: function (error) {
-            	console.log(error);
+            	window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         });
     }

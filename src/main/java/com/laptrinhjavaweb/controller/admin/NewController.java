@@ -17,6 +17,7 @@ import com.laptrinhjavaweb.paging.Pageble;
 import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewService;
 import com.laptrinhjavaweb.utils.FormUtil;
+import com.laptrinhjavaweb.utils.MessageUtil;
 import com.laptrinhjavaweb.sort.Sorter;
 
 @WebServlet(urlPatterns = {"/admin-new"})
@@ -45,9 +46,11 @@ public class NewController extends HttpServlet{
 			if(model.getId() !=  null) {
 				model = newService.findOne(model.getId());
 			}
+			//setAttribute day data xuong view
 			request.setAttribute("categories", categoryService.findAll());
 			view = "/views/admin/new/edit.jsp";
 		}
+		MessageUtil.showMessage(request);
 		request.setAttribute(SystemConstant.MODEL, model);
 		RequestDispatcher rd = request.getRequestDispatcher(view);
 		rd.forward(request, response);
