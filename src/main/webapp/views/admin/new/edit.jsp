@@ -79,7 +79,7 @@
                             <br/>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right">Nội dung</label>
-                                <div class="col-sm-9">                                 
+                               <div class="col-sm-9">                                 
                                     <textarea rows="" cols="" id="content" name="content" style="width: 820px;height: 175px">${model.content}</textarea>
                                 </div>
                             </div>
@@ -103,10 +103,10 @@
     </div>
 </div>
 <script>
-	/* var editor = '';
+	var editor = '';
 	$(document).ready(function(){
 		editor = CKEDITOR.replace( 'content');
-	}); */
+	});
 	
     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
@@ -115,7 +115,7 @@
         $.each(formData, function (i, v) {
             data[""+v.name+""] = v.value;
         });
-        //data["content"] = editor.getData();
+        data["content"] = editor.getData();
         var id = $('#id').val();
         if (id == "") {
             addNew(data);
@@ -154,50 +154,6 @@
         });
     }
 </script>
-
-<!-- <script>
-	$('#btnAddOrUpdateNew').click(function (e){
-		 e.preventDefault();
-		 var data = {};
-		 //formData lay tat cai name trong from
-		 var formData = $('#formSubmit').serializeArray();
-		 $.each(formData, function(i, v){
-			 data[""+v.name+""] = v.value;
-		 });
-	        var id = $('#id').val();
-	        if (id == "") {
-	            addNew(data);
-	        } else {
-	            updateNew(data);
-	        }
-	});
-	
-	function addNew(data){
-		$ajax({
-			url: '${APIurl}',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (result){
-            	console.log(result);
-            },
-            error: function (error){
-            	console.log(error);
-            }
-		});
-	}
-	
-	function updateNew(data){
-		$ajax({
-			url: '${APIurl}',
-            type: 'PUT',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-		});
-	}
-</script> -->
 
 <%-- <c:url var="APIurl" value="/api-admin-new"/> --%>
 </body>
